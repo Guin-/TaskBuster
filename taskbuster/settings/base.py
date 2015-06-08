@@ -26,8 +26,8 @@ def get_env_variable(var_name):
     try:
         return os.environ[var_name]
     except KeyError:
-        error_msg= "set the %s enviornment variable" % var_name
-        raise ImproperlyConfirgured(error_msg)
+        error_msg= "set the %s environment variable" % var_name
+        raise ImproperlyConfigured(error_msg)
 
 SECRET_KEY =  get_env_variable('SECRET_KEY')
 
@@ -48,6 +48,7 @@ INSTALLED_APPS = (
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -68,6 +69,7 @@ TEMPLATES = [
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
+                'django.template.context_processors.i18n',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
@@ -92,6 +94,13 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
+from django.utils.translation import ugettext_lazy as _
+
+LANGUAGES = (
+    ('en', _('English')),
+    ('fr', _('French')),
+)
+
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -101,6 +110,10 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, "locale"),
+)
 
 
 # Static files (CSS, JavaScript, Images)
