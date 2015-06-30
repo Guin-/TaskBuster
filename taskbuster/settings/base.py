@@ -50,6 +50,8 @@ INSTALLED_APPS = (
     'allauth.socialaccount',
     #Login via Google
     'allauth.socialaccount.providers.google',
+    # Taskbuster Apps
+    'taskbuster.apps.taskmanager',
 )
 
 MIDDLEWARE_CLASSES = (
